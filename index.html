@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111827">
+<title>MedQ Hub — Question Bank Library</title>
+<style>
+:root{--bg:#0b1020;--panel:#121a2d;--panel2:#172238;--text:#eef3ff;--muted:#9aa8c2;--line:rgba(255,255,255,.09);--accent:#8b9cff;--mint:#70e1c1}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 15% 0%,rgba(91,108,220,.18),transparent 38%),radial-gradient(ellipse at 90% 18%,rgba(40,190,159,.10),transparent 32%),var(--bg);color:var(--text);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input{font:inherit}.wrap{width:min(1160px,calc(100% - 40px));margin:auto}.top{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:25px 0;border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:12px}.logo{display:grid;place-items:center;width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#9ca9ff,#6be3c2);color:#10182a;font-weight:900;font-size:20px;box-shadow:0 8px 28px #7485ff30}.brandname{font-weight:800;letter-spacing:-.4px;font-size:17px}.brand-sub{color:var(--muted);font-size:11px;letter-spacing:1.6px;text-transform:uppercase}.local{border:1px solid var(--line);color:#c7d3ea;background:#ffffff06;border-radius:999px;padding:8px 12px;font-size:12px}
+.hero{padding:58px 0 30px;display:grid;grid-template-columns:1.25fr .75fr;gap:28px;align-items:center}.eyebrow{color:var(--mint);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase}.hero h1{font-size:clamp(34px,5vw,58px);letter-spacing:-2.2px;line-height:1.04;margin:14px 0 17px;max-width:680px}.hero h1 span{background:linear-gradient(90deg,#a8b4ff,#70e1c1);-webkit-background-clip:text;background-clip:text;color:transparent}.hero p{max-width:620px;color:var(--muted);font-size:16px;margin:0}.hero-stat{border:1px solid var(--line);background:linear-gradient(145deg,#ffffff0b,#ffffff03);border-radius:24px;padding:24px;position:relative;overflow:hidden}.hero-stat:after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;background:#8b9cff18;right:-55px;top:-60px}.stat-label{color:var(--muted);font-size:12px}.stat-number{font-size:42px;font-weight:800;letter-spacing:-1.5px;margin:3px 0}.stat-foot{color:#c3d0e8;font-size:12px}.stat-line{height:5px;background:#ffffff12;border-radius:9px;margin-top:20px;overflow:hidden}.stat-line i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#8b9cff,#70e1c1);border-radius:9px}
+.controls{display:flex;gap:12px;align-items:center;margin:24px 0 16px;flex-wrap:wrap}.searchbox{position:relative;flex:1;min-width:230px}.searchbox span{position:absolute;left:15px;top:10px;color:var(--muted);font-size:18px}.searchbox input{width:100%;height:46px;padding:0 15px 0 43px;border:1px solid var(--line);border-radius:14px;background:#ffffff07;color:var(--text);outline:none}.searchbox input:focus{border-color:#8b9cff99;box-shadow:0 0 0 3px #8b9cff18}.filters{display:flex;gap:7px;flex-wrap:wrap}.filter{border:1px solid var(--line);background:#ffffff05;color:var(--muted);padding:10px 13px;border-radius:12px;font-size:12px;font-weight:750;cursor:pointer;transition:.18s}.filter:hover{color:var(--text);border-color:#8b9cff88}.filter.active{background:#8b9cff20;border-color:#8b9cff80;color:#c7ceff}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:28px 0 14px}.section-head h2{margin:0;font-size:21px;letter-spacing:-.5px}.section-head p{margin:4px 0 0;color:var(--muted);font-size:12px}.count{color:var(--muted);font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.card{--glow:#8b9cff;position:relative;display:flex;flex-direction:column;min-height:225px;padding:19px;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,#ffffff09,#ffffff03);overflow:hidden;transition:transform .2s,border-color .2s,background .2s}.card:before{content:"";position:absolute;width:160px;height:160px;border-radius:50%;background:var(--glow);opacity:.09;right:-85px;top:-95px;filter:blur(3px)}.card:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--glow) 70%,white 0%);background:linear-gradient(145deg,#ffffff10,#ffffff04)}.card-top{display:flex;justify-content:space-between;align-items:start;gap:10px}.platform-icon{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;font-size:21px;font-weight:900;background:color-mix(in srgb,var(--glow) 18%,transparent);border:1px solid color-mix(in srgb,var(--glow) 35%,transparent);color:var(--glow)}.type{font-size:10px;letter-spacing:1.1px;text-transform:uppercase;color:var(--muted);font-weight:800;padding-top:4px}.card h3{font-size:18px;letter-spacing:-.35px;margin:17px 0 6px;overflow-wrap:anywhere}.card p{font-size:13px;color:var(--muted);margin:0 0 20px;max-width:95%}.card-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:12px;border-top:1px solid var(--line)}.file{font-size:11px;color:#9caac4;overflow-wrap:anywhere}.open{font-size:12px;font-weight:800;color:var(--glow);white-space:nowrap}.open span{font-size:16px;margin-left:4px}.empty{display:none;text-align:center;border:1px dashed var(--line);padding:42px 15px;border-radius:18px;color:var(--muted)}.empty strong{display:block;color:var(--text);font-size:16px;margin-bottom:5px}.note{margin:30px 0 0;border:1px solid var(--line);background:#ffffff04;border-radius:16px;padding:15px 17px;color:var(--muted);font-size:12px}.note strong{color:#dbe4fa}.footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:28px 0 35px;margin-top:28px;border-top:1px solid var(--line);color:#7786a3;font-size:11px}
+
+.controls{display:grid;grid-template-columns:minmax(230px,1.3fr) minmax(180px,.7fr) minmax(180px,.8fr) auto;gap:10px;align-items:center;margin:24px 0 12px}.select{width:100%;height:46px;padding:0 13px;border:1px solid var(--line);border-radius:14px;background:#ffffff07;color:var(--text);outline:none}.select option{background:#121a2d;color:var(--text)}.random{height:46px;padding:0 17px;border:1px solid #70e1c177;border-radius:14px;background:linear-gradient(135deg,#70e1c120,#8b9cff20);color:#b8ffe9;font-size:13px;font-weight:800;white-space:nowrap;cursor:pointer;transition:.18s}.random:hover{transform:translateY(-2px);border-color:#70e1c1}.filter-row{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0 22px}.filter-label{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:1px;font-weight:800;align-self:center;margin-right:4px}.tags{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}.tag{font-size:10px;font-weight:750;padding:5px 8px;border-radius:8px;background:#ffffff08;border:1px solid var(--line);color:#c7d3ea}.tag.grand{color:#b8ffe9;border-color:#70e1c144;background:#70e1c10c}.tag.unset{color:#e5c78b}.platform-name{font-size:10px;letter-spacing:1.1px;text-transform:uppercase;color:var(--muted);font-weight:800;padding-top:4px}
+@media(max-width:900px){.controls{grid-template-columns:1fr 1fr}.searchbox{grid-column:1/-1}.random{width:100%}}
+@media(max-width:560px){.controls{grid-template-columns:1fr}.searchbox{grid-column:auto}.filter-row{gap:6px}.filter-label{width:100%;margin:7px 0 1px}}
+
+@media(max-width:850px){.hero{grid-template-columns:1fr;padding-top:42px}.hero-stat{max-width:420px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.wrap{width:min(100% - 26px,1160px)}.top{padding:17px 0}.local{display:none}.hero{padding:36px 0 16px;gap:22px}.hero h1{letter-spacing:-1.4px}.hero p{font-size:14px}.hero-stat{padding:18px}.stat-number{font-size:34px}.controls{margin-top:18px}.filters{width:100%}.filter{flex:1}.grid{grid-template-columns:1fr;gap:11px}.card{min-height:190px}.section-head{align-items:start;flex-direction:column}}
+
+/* ===== Redesigned filters ===== */
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:24px 0 14px}
+.controls .searchbox{flex:1 1 280px;min-width:0}
+.controls .searchbox input{height:50px;border-radius:16px;background:linear-gradient(145deg,#ffffff0b,#ffffff04);transition:.18s}
+.controls .searchbox span{top:12px}
+.controls .random{height:50px;border-radius:16px;flex:none}
+.filter-panel{border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,#ffffff0b,#ffffff03);padding:4px 20px;margin:0 0 24px;position:relative;overflow:hidden}
+.filter-panel:before{content:"";position:absolute;width:220px;height:220px;border-radius:50%;background:#8b9cff;opacity:.07;right:-90px;top:-130px;pointer-events:none}
+.fhead{display:flex;align-items:center;justify-content:space-between;padding:14px 0 4px;position:relative}
+.ftitle{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:800;letter-spacing:-.1px}
+.ftitle i{display:grid;place-items:center;width:26px;height:26px;border-radius:9px;font-style:normal;font-size:13px;background:linear-gradient(135deg,#8b9cff30,#70e1c120);border:1px solid #8b9cff55;color:#c7ceff}
+.fbadge{display:none;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--accent);color:#0b1020;font-size:11px;font-weight:800;place-items:center}
+.fbadge.on{display:grid}
+.reset{border:1px solid #ff8f9f44;background:#ff8f9f12;color:#ffb3bf;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer;transition:.18s}
+.reset:hover{background:#ff8f9f24;border-color:#ff8f9f99}
+.reset[hidden]{display:none}
+.fgroup{display:flex;gap:16px;align-items:flex-start;padding:13px 0;position:relative}
+.fgroup+.fgroup{border-top:1px dashed var(--line)}
+.fgroup[hidden]{display:none}
+.fgroup.sub:not([hidden]){animation:fslide .28s ease}
+@keyframes fslide{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.flabel{flex:none;width:96px;padding-top:9px;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:1.1px;font-weight:800}
+.chips{display:flex;flex-wrap:wrap;gap:8px;flex:1;min-width:0}
+.chip{display:inline-flex;align-items:center;gap:9px;padding:6px 7px 6px 14px;border-radius:999px;border:1px solid var(--line);background:#ffffff06;color:#c7d3ea;font-size:13px;font-weight:650;cursor:pointer;transition:transform .15s,background .18s,border-color .18s,color .18s,box-shadow .18s;--dot:#8b9cff}
+.chip .dot{width:8px;height:8px;border-radius:50%;background:var(--dot);box-shadow:0 0 8px var(--dot);margin-right:-2px}
+.chip .n{display:grid;place-items:center;min-width:24px;height:24px;padding:0 7px;border-radius:999px;background:#ffffff10;color:var(--muted);font-size:11px;font-weight:800;transition:.18s}
+.chip:hover{transform:translateY(-1px);color:var(--text);border-color:#8b9cff88;background:#ffffff0d}
+.chip:focus-visible,.reset:focus-visible,.random:focus-visible{outline:2px solid #8b9cffcc;outline-offset:2px}
+.chip.active{color:#fff;border-color:#8b9cffb0;background:linear-gradient(135deg,#8b9cff38,#70e1c122);box-shadow:0 8px 22px -10px #8b9cffcc,inset 0 0 0 1px #ffffff10}
+.chip.active .n{background:var(--accent);color:#0b1020}
+.chip.empty-opt:not(.active){opacity:.38}
+.chip.grandchip.active{border-color:#70e1c1b0;background:linear-gradient(135deg,#70e1c12e,#8b9cff1c);box-shadow:0 8px 22px -10px #70e1c1cc}
+.chip.grandchip.active .n{background:var(--mint)}
+@media(max-width:700px){
+  .filter-panel{padding:2px 14px;border-radius:18px}
+  .fgroup{flex-direction:column;gap:8px}
+  .flabel{width:auto;padding-top:0}
+  .controls .random{width:100%}
+  .chips{flex-wrap:nowrap;overflow-x:auto;margin:0 -14px;padding:2px 14px 6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{flex:none}
+}
+@media(prefers-reduced-motion:reduce){.chip,.fgroup.sub{transition:none;animation:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><div class="logo">M+</div><div><div class="brandname">MedQ Hub</div><div class="brand-sub">Your question bank library</div></div></div>
+  </header>
+  <section class="hero">
+    <div><div class="eyebrow">Study smarter. Practice better.</div><h1>All your MCQs.<br><span>One study space.</span></h1><p>A clean launchpad for your medical entrance question banks. Choose a platform, open a test, and get straight into practice.</p></div>
+    <div class="hero-stat"><div class="stat-label">YOUR LIBRARY</div><div class="stat-number" id="statCount">01 <span style="font-size:17px;color:#9aa8c2;font-weight:600">file</span></div><div class="stat-foot">Question banks, organized in one place.</div><div class="stat-line"><i></i></div></div>
+  </section>
+  <div class="controls">
+    <label class="searchbox"><span>⌕</span><input id="search" type="search" placeholder="Search files, platforms, exams…" autocomplete="off" aria-label="Search question banks"></label>
+    <button class="random" id="randomButton" type="button">⤨ Random MCQ file</button>
+  </div>
+  <section class="filter-panel" id="filterPanel" aria-label="Filters">
+    <div class="fhead">
+      <div class="ftitle"><i>⚲</i>Filters <span class="fbadge" id="fbadge">0</span></div>
+      <button class="reset" id="resetFilters" type="button" hidden>Clear all ✕</button>
+    </div>
+    <div class="fgroup"><div class="flabel">Platform</div><div class="chips" id="platformChips" role="group" aria-label="Filter by platform"></div></div>
+    <div class="fgroup"><div class="flabel">Test type</div><div class="chips" id="testChips" role="group" aria-label="Filter by test type"></div></div>
+    <div class="fgroup sub" id="grandFilters" hidden><div class="flabel">Grand test</div><div class="chips" id="grandChips" role="group" aria-label="Filter by grand test"></div></div>
+  </section>
+  <div class="section-head"><div><h2>Question banks</h2><p>A single HTML file can be tagged with multiple test types.</p></div><div class="count" id="resultCount">1 resource</div></div>
+  <main class="grid" id="cards"></main>
+  <div class="empty" id="empty"><strong>No matching question banks</strong>Try another search or choose a different platform.</div>
+  <footer class="footer"><span>MedQ Hub · Personal study library</span></footer>
+</div>
+<script>
+/*
+===============================================================================
+EASY EDIT AREA — add or edit your HTML files here.
+===============================================================================
+One object = one HTML file.
+- filename: exact file name in the same folder as index.html
+- platform: one of PLATFORM_OPTIONS
+- testTypes: any combination of TEST_TYPE_OPTIONS
+- grandTests: use these for files containing specific grand tests
+- exams: optional text/list of exam names
+Add more filter choices by editing the option arrays below.
+*/
+const PLATFORM_OPTIONS = ["Marrow", "PrepLadder", "DAMS", "Cerebellum", "Reflex", "BTR", "Doc Tutorials"];
+const TEST_TYPE_OPTIONS = ["Main Qbank", "Subject tests", "Mini tests", "Grand tests", "TnD/EnD"];
+const GRAND_TEST_OPTIONS = ["NEET PG GT", "INIET GT", "FMGE GT"];
+
+const questionBanks = [
+  {
+    title: "MARROW PYQs",
+    platform: "MARROW",
+    exams: [""],
+    testTypes: [], // Add any types included in this file, e.g. ["Grand tests", "Mini tests"]
+    grandTests: [], // e.g. ["INIET GT"]
+    description: "Marrow PYQs in a beautifully engineered setup.",
+    filename: "Marrow_PYQs.html",
+    icon: "M",
+    color: "#53bac3"
+  },
+  {
+    title: "DAMS INI-CET CBT",
+    platform: "DAMS",
+    exams: ["INI-CET"],
+    testTypes: [], // Add any types included in this file, e.g. ["Grand tests", "Mini tests"]
+    grandTests: [], // e.g. ["INIET GT"]
+    description: "DAMS INI-CET question bank with its built-in test interface.",
+    filename: "DAMS_INI-CET_CBT.html",
+    icon: "D",
+    color: "#e6b66b"
+  }
+,
+{
+  title: "Reflex - All Tests",
+  platform: "Reflex",
+  exams: ["AIIMS", "NEET-PG"],
+  testTypes: ["Subject tests", "Grand tests"],
+  grandTests: ["NEET PG GT", "INIET GT"],
+  description: "",
+  filename: "Reflex_All_Tests.html",
+  icon: "R",
+  color: "#70e1c1"
+}
+  /*
+  COPY THIS TEMPLATE for each additional HTML file; remove the leading comma
+  from the first copied item only if you place it before the existing item.
+
+  ,{
+    title: "Marrow — Qbank + Grand Tests",
+    platform: "Marrow",
+    exams: ["NEET PG", "INI-CET"],
+    testTypes: ["Main Qbank", "Grand tests"],
+    grandTests: ["NEET PG GT", "INIET GT"],
+    description: "Main Qbank and grand tests in one HTML file.",
+    filename: "Marrow_Qbank_GT.html",
+    icon: "M",
+    color: "#70e1c1"
+  }
+  */
+];
+
+/* Page logic below — normally you only edit the configuration above. */
+const cards = document.getElementById("cards");
+const search = document.getElementById("search");
+const resultCount = document.getElementById("resultCount");
+const empty = document.getElementById("empty");
+const grandFilters = document.getElementById("grandFilters");
+const GRAND_OPTIONS = ["NEET PG GT", "INIET GT", "FMGE GT"];
+const state = { platform: "all", test: "all", grand: "all" };
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({"&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"}[char]));
+}
+function list(value) { return !value ? [] : (Array.isArray(value) ? value : [value]).map(String); }
+
+/* ---- Filter chips ---- */
+const GROUPS = {
+  platform: { el: document.getElementById("platformChips"), label: "All platforms", options: PLATFORM_OPTIONS, has: (i, v) => i.platform === v },
+  test:     { el: document.getElementById("testChips"),     label: "All types",     options: TEST_TYPE_OPTIONS, has: (i, v) => list(i.testTypes).includes(v) },
+  grand:    { el: document.getElementById("grandChips"),    label: "All GTs",       options: GRAND_OPTIONS,     has: (i, v) => list(i.grandTests).includes(v), cls: "grandchip" }
+};
+function platformColor(name) {
+  const hit = questionBanks.find(i => i.platform === name && i.color);
+  return hit ? hit.color : "#8b9cff";
+}
+function buildChips() {
+  Object.entries(GROUPS).forEach(([key, g]) => {
+    const mk = (value, label, color) => `<button type="button" class="chip ${g.cls || ""}" data-group="${key}" data-value="${escapeHtml(value)}" ${color ? `style="--dot:${escapeHtml(color)}"` : ""}>${color ? '<span class="dot"></span>' : ""}<span class="lbl">${escapeHtml(label)}</span><span class="n">0</span></button>`;
+    g.el.innerHTML = mk("all", g.label) + g.options.map(o => mk(o, o, key === "platform" ? platformColor(o) : null)).join("");
+  });
+}
+function matchesFilters(item, skip) {
+  const query = search.value.trim().toLowerCase();
+  const types = list(item.testTypes), grandTests = list(item.grandTests);
+  const platformMatch = skip === "platform" || state.platform === "all" || item.platform === state.platform;
+  const typeMatch = skip === "test" || state.test === "all" || types.includes(state.test);
+  const grandMatch = skip === "grand" || state.grand === "all" || grandTests.includes(state.grand);
+  const haystack = [item.title, item.platform, item.description, item.filename, ...list(item.exams), ...types, ...grandTests].join(" ").toLowerCase();
+  return platformMatch && typeMatch && grandMatch && haystack.includes(query);
+}
+function updateChips() {
+  Object.entries(GROUPS).forEach(([key, g]) => {
+    const pool = questionBanks.filter(i => matchesFilters(i, key));
+    g.el.querySelectorAll(".chip").forEach(chip => {
+      const v = chip.dataset.value;
+      const n = v === "all" ? pool.length : pool.filter(i => g.has(i, v)).length;
+      chip.querySelector(".n").textContent = n;
+      chip.classList.toggle("active", state[key] === v);
+      chip.classList.toggle("empty-opt", n === 0);
+      chip.setAttribute("aria-pressed", state[key] === v);
+    });
+  });
+  const active = ["platform", "test", "grand"].filter(k => state[k] !== "all").length;
+  const badge = document.getElementById("fbadge");
+  badge.textContent = active; badge.classList.toggle("on", active > 0);
+  document.getElementById("resetFilters").hidden = !active && !search.value;
+}
+document.getElementById("filterPanel").addEventListener("click", event => {
+  const chip = event.target.closest(".chip"); if (!chip) return;
+  const { group, value } = chip.dataset;
+  state[group] = (state[group] === value) ? "all" : value;
+  if (group === "test") state.grand = "all";
+  render();
+});
+document.getElementById("resetFilters").addEventListener("click", () => {
+  state.platform = state.test = state.grand = "all"; search.value = ""; render();
+});
+buildChips();
+
+function render() {
+  const visible = questionBanks.filter(i => matchesFilters(i));
+  cards.innerHTML = visible.map(item => {
+    const types = list(item.testTypes), grandTests = list(item.grandTests);
+    const tags = [...types.map(t => `<span class="tag">${escapeHtml(t)}</span>`), ...grandTests.map(t => `<span class="tag grand">${escapeHtml(t)}</span>`)];
+    if (!tags.length) tags.push('<span class="tag unset">Test type not set</span>');
+    const examText = list(item.exams).join(" · ") || "MCQ Bank";
+    return `<a class="card" href="${encodeURI(item.filename).replace(/'/g,"%27")}" style="--glow:${item.color || "#8b9cff"}">
+      <div class="card-top"><div class="platform-icon">${escapeHtml(item.icon || String(item.platform || "?").slice(0,1))}</div><div class="platform-name">${escapeHtml(item.platform)}</div></div>
+      <h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.description || "Open this question bank and start practicing.")}</p>
+      <div class="tags">${tags.join("")}</div>
+      <div class="card-bottom"><span class="file">${escapeHtml(examText)} · ${escapeHtml(item.filename)}</span><span class="open">Open bank <span>↗</span></span></div></a>`;
+  }).join("");
+  resultCount.textContent = `${visible.length} ${visible.length === 1 ? "resource" : "resources"}`;
+  empty.style.display = visible.length ? "none" : "block";
+  document.getElementById("statCount").innerHTML = `${String(questionBanks.length).padStart(2,"0")} <span style="font-size:17px;color:#9aa8c2;font-weight:600">${questionBanks.length === 1 ? "file" : "files"}</span>`;
+  grandFilters.hidden = state.test !== "Grand tests";
+  updateChips();
+}
+search.addEventListener("input", render);
+document.getElementById("randomButton").addEventListener("click", () => {
+  const eligible = questionBanks.filter(i => matchesFilters(i));
+  if (!eligible.length) { empty.style.display = "block"; empty.querySelector("strong").textContent = "No files match your current filters"; return; }
+  const picked = eligible[Math.floor(Math.random() * eligible.length)];
+  window.location.href = encodeURI(picked.filename).replace(/'/g, "%27");
+});
+render();
+</script>
+</body>
+</html>
